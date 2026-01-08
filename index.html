@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NewfoundLUG Bulk 2026 – Parts Browser</title>
+  
+  <script>
+    if (localStorage.getItem("nflug_access_ok") !== "1") {
+      window.location.href = "./login.html";
+    }
+  </script>
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="title">
+      <h1>NewfoundLUG Bulk 2026</h1>
+      <p class="subtitle">Search and filter the preliminary element list. Images load from LEGO’s CDN when available.</p>
+    </div>
+
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search element ID, description, or subgroup…" autocomplete="off" />
+      <select id="mainGroup">
+        <option value="">All main groups</option>
+      </select>
+      <select id="subGroup">
+        <option value="">All sub groups</option>
+      </select>
+
+      <div class="pager">
+        <button id="prev" type="button">← Prev</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="next" type="button">Next →</button>
+      </div>
+
+      <div class="meta">
+        <span id="count"></span>
+      </div>
+      <button id="logoutBtn" type="button" onclick="localStorage.removeItem('nflug_access_ok'); location.href='./login.html';">Logout</button>
+
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="results" class="grid" aria-live="polite"></div>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Tip: Click a card’s <strong>Pick a Brick</strong> link to open LEGO’s search for that element ID.
+      You can host this folder on GitHub Pages, Netlify, or any basic web host.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
