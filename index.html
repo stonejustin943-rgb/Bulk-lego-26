@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>LUGBulk 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+if (localStorage.getItem("nflug_access_ok") !== "1") {
+  window.location.href = "./login.html";
+}
+</script>
+<style>
+body{font-family:system-ui;padding:10px}
+input{width:100%;padding:10px;font-size:16px;margin-bottom:10px}
+.part{border-bottom:1px solid #ddd;padding:6px 0}
+.price{font-weight:bold}
+</style>
+</head>
+<body>
+<h2>LUGBulk 2026 – CAD Prices</h2>
+<input id="search" placeholder="Search element or description">
+<div id="list"></div>
+
+<script>
+fetch("data.json").then(r=>r.json()).then(data=>{
+  const list=document.getElementById("list");
+  const search=document.getElementById("search");
+  function render(){
+    list.innerHTML="";
+    data.filter(d=>
+      d.element_id.includes(search.value) ||
+      d.description.toLowerCase().includes(search.value.toLowerCase())
+    ).slice(0,500).forEach(p=>{
+      const div=document.createElement("div");
+      div.className="part";
+      div.innerHTML = `<div><b>${p.element_id}</b> – ${p.description}</div>
+                       <div class="price">$${p.price_cad?.toFixed(2)} CAD</div>`;
+      list.appendChild(div);
+    });
+  }
+  search.oninput=render;
+  render();
+});
+</script>
+</body>
+</html>
